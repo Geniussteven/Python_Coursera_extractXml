@@ -18,7 +18,7 @@ Count: 50
 Sum: 2...
 
 
-Solution:
+Solution one:
 
 import urllib.request, urllib.parse, urllib.error
 import xml.etree.ElementTree as ET
@@ -43,3 +43,30 @@ for item in lst:
     
 print ('Count:', count)
 print ('Sum:' , total)
+
+Solution two:
+from urllib.request import urlopen
+import xml.etree.ElementTree as ET
+import ssl
+
+
+url=input('Enter location:')
+print('Retrieving...',url)
+accumulative=0
+XML=urlopen(url).read() #readu url
+print('Retreived:',str(len(XML)),'characters')
+tree= ET.fromstring(XML)
+print(tree)
+counts=tree.findall('.//count')
+print('Count', str(len(counts)))
+list=list()
+x=None
+for i in counts:
+    #option 1 accumulation
+    accumulative=accumulative+int(i.text)
+    x=int(i.text)
+    #option 2 list sum
+    list.append(x)
+
+print(accumulative)
+print(sum(list))
